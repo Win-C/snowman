@@ -75,7 +75,7 @@ function Snowman(props) {
         <img src={(props.images)[nWrong]} alt={nWrong} />
         <p className="Snowman-nWrong">Number wrong: {nWrong}</p>
         <p className="Snowman-word">{guessedWord()}</p>
-        <p>{generateButtons()}</p>
+        <p className="Snowman-btn-area">{generateButtons()}</p>
       </div>
   );
 }
