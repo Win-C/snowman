@@ -12,7 +12,7 @@ it("renders end game on loss", function() {
 
   // Make 6 wrong guesses
   const guess = container.querySelector("button[value='z']");
-  debug(guess);
+  // debug(guess);
   fireEvent.click(guess);
   fireEvent.click(guess);
   fireEvent.click(guess);
