@@ -26,6 +26,7 @@ exports[`matches snapshot 1`] = `
     </p>
     <p
       class="Snowman-btn-area"
+      style="visibility: visible;"
     >
       <button
         value="a"
@@ -157,6 +158,12 @@ exports[`matches snapshot 1`] = `
       >
         z
       </button>
+    </p>
+    <p
+      class="Snowman-endgame-msg"
+      style="visibility: hidden;"
+    >
+      You lose!
     </p>
   </div>
 </div>

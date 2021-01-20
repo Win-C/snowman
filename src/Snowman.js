@@ -75,7 +75,8 @@ function Snowman(props) {
         <img src={(props.images)[nWrong]} alt={nWrong} />
         <p className="Snowman-nWrong">Number wrong: {nWrong}</p>
         <p className="Snowman-word">{guessedWord()}</p>
-        <p className="Snowman-btn-area">{generateButtons()}</p>
+        <p className="Snowman-btn-area" style={{ visibility: nWrong >= props.maxWrong ? "hidden" : "visible"}}>{generateButtons()}</p> 
+        <p className="Snowman-endgame-msg" style={{ visibility: nWrong < props.maxWrong ? "hidden" : "visible"}}>You lose!</p> 
       </div>
   );
 }

@@ -7,25 +7,19 @@ it("renders without crashing", function() {
 });
 
 it("renders end game on loss", function() {
-  const { container, debug } = render(<Snowman />);
+  const { container, debug } = render(<Snowman words={["apple"]} />);
   // debug();
 
   // Make 6 wrong guesses
-  const guess = container.querySelector("button[value='z']");
-  // debug(guess);
-  fireEvent.click(guess);
-  fireEvent.click(guess);
-  fireEvent.click(guess);
-  fireEvent.click(guess);
-  fireEvent.click(guess);
-  fireEvent.click(guess);
+  const wrongLtrArr = ["b","c","d","f", "z", "h"];
+  wrongLtrArr.map(l => {fireEvent.click(container.querySelector(`button[value='${l}']`))});
 
   const nWrong = container.querySelector(".Snowman-nWrong");
   const buttonArea = container.querySelector(".Snowman-btn-area");
   const message = container.querySelector(".Snowman-endgame-msg");
 
   expect(nWrong).toContainHTML("6");
-  expect(buttonArea.getAttribute("visibility")).toEqual("hidden");
+  expect(buttonArea.getAttribute("style")).toEqual(`visibility: hidden;`);
   expect(message).toContainHTML("You lose");
 });
 
