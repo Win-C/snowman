@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { randomWord, ENGLISH_WORDS } from "./words";
 import "./Snowman.css";
 import img0 from "./0.png";
 import img1 from "./1.png";
@@ -28,15 +28,15 @@ function Snowman(props) {
 
   const [nWrong, setNWrong] = useState(0);
   const [guessed, setGuessed] = useState(new Set());
-  const [answer, setAnswer] = useState((props.words)[0]);
+  const [answer, setAnswer] = useState(randomWord(props.words));
 
   /** guessedWord: show current-state of word:
    if guessed letters are {a,p,e}, show "app_e" for "apple"
    */
   function guessedWord() {
     return answer
-        .split("")
-        .map(ltr => (guessed.has(ltr) ? ltr : "_"));
+      .split("")
+      .map(ltr => (guessed.has(ltr) ? ltr : "_"));
   }
 
   /** handleGuess: handle a guessed letter:
@@ -58,33 +58,39 @@ function Snowman(props) {
   /** generateButtons: return array of letter buttons to render */
   function generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
-        <button
-            key={ltr}
-            value={ltr}
-            onClick={handleGuess}
-            disabled={guessed.has(ltr)}
-        >
-          {ltr}
-        </button>
+      <button
+        key={ltr}
+        value={ltr}
+        onClick={handleGuess}
+        disabled={guessed.has(ltr)}
+      >
+        {ltr}
+      </button>
     ));
   }
 
+  function restart() {
+    setAnswer(randomWord(props.words));
+    setGuessed(new Set());
+    setNWrong(0);
+  }
   /** render: render game */
   return (
-      <div className="Snowman">
-        <img src={(props.images)[nWrong]} alt={nWrong} />
-        <p className="Snowman-nWrong">Number wrong: {nWrong}</p>
-        <p className="Snowman-word">{guessedWord()}</p>
-        <p className="Snowman-btn-area" style={{ visibility: nWrong >= props.maxWrong ? "hidden" : "visible"}}>{generateButtons()}</p> 
-        <p className="Snowman-endgame-msg" style={{ visibility: nWrong < props.maxWrong ? "hidden" : "visible"}}>You lose!</p> 
-      </div>
+    <div className="Snowman">
+      <img src={(props.images)[nWrong]} alt={nWrong} />
+      <p className="Snowman-nWrong">Number wrong: {nWrong}</p>
+      <p className="Snowman-word">{guessedWord()}</p>
+      <p className="Snowman-btn-area" style={{ visibility: nWrong >= props.maxWrong ? "hidden" : "visible" }}>{generateButtons()}</p>
+      <p className="Snowman-endgame-msg" style={{ visibility: nWrong < props.maxWrong ? "hidden" : "visible" }}>You lose!</p>
+      <button className="Snowman-restart" onClick={() => { restart() }}> Restart!</button>
+    </div>
   );
 }
 
 Snowman.defaultProps = {
   maxWrong: 6,
   images: [img0, img1, img2, img3, img4, img5, img6],
-  words: ["apple"],
+  words: ENGLISH_WORDS,
 };
 
 
